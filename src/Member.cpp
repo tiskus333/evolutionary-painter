@@ -146,8 +146,10 @@ void Member::mutatePosition(const unsigned int gene_index)
 {
     sf::Vector2f move_(distribution_(generator_), distribution_(generator_));
     for (int i = 0; i < 4; ++i)
-        rectangles_.at(gene_index + i).position += move_;
-
+    {
+        rectangles_.at(gene_index + i).position.x += move_.x;
+        rectangles_.at(gene_index + i).position.y += move_.y;
+    }
     modified_ = true;
     if (isOutOfBounds(gene_index))
         deleteGene(gene_index);
@@ -160,21 +162,25 @@ void Member::mutatePosition(const unsigned int gene_index)
 void Member::mutateShape(const unsigned int gene_index)
 {
     int vert = rand() % 4;
-    int skip = 0;
-    float rand_move = distribution_(generator_);
+    float rand_scale = 1.0 + distribution_(generator_);
 
     if (rand() % 2)
-    {
-        rectangles_.at(gene_index + vert).position.x += rand_move;
-        skip = vert % 2 ? 1 : 3;
-        rectangles_.at(gene_index + (vert + skip) % 4).position.x += rand_move;
-    } else
-    {
-        rectangles_.at(gene_index + vert).position.y += rand_move;
-        skip = vert % 2 ? 3 : 1;
-        rectangles_.at(gene_index + (vert + skip) % 4).position.y += rand_move;
-    }
+        for (int i = 0; i < 4; ++i)
+        {
+            rectangles_.at(gene_index + i).position.x =
+                rectangles_.at(gene_index + i).position.x * rand_scale + rectangles_.at(gene_index + vert).position.x * (1.0 - rand_scale);
+        }
+    else
+        for (int i = 0; i < 4; ++i)
+        {
+            rectangles_.at(gene_index + i).position.y =
+                rectangles_.at(gene_index + i).position.y * rand_scale + rectangles_.at(gene_index + vert).position.y * (1.0 - rand_scale);
+        }
+    modified_ = true;
+    if (isOutOfBounds(gene_index))
+        deleteGene(gene_index);
 }
+
 
 bool Member::isModified() { return modified_; }
 void Member::setModified(bool val) { modified_ = val; }
