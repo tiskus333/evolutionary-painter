@@ -1,0 +1,11 @@
+image: ubuntu:focal
+
+
+before_script:
+    - apt-get update --yes > /dev/null
+    - DEBIAN_FRONTEND=noninteractive apt-get install --yes cmake gcc g++ libsfml-dev libboost-all-dev doxygen > /dev/null
+
+build_cmake:
+  stage: build
+  script: 
+    - sh ./build.sh
