@@ -1,0 +1,12 @@
+#build files
+build/
+lib/
+bin/
+
+#workspace settings
+.vscode/
+
+#generated file
+generated.jpg
+generated_*.jpg
+
