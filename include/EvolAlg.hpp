@@ -49,7 +49,7 @@ class EvolAlg
     const float DELETE_GENE = 0.01;
     const float MODIFY_GENE = 0.5;
     const float MOVE_GENE = 0.1;
-    const float CHANGE_RADIUS = 0.1;
+    const float CHANGE_SHAPE = 0.1;
     const float CHANGE_COLOR = 0.1;
     const unsigned int SUPER_MEMBER_COUNT = 1;
     std::vector<Member> tmp_population_;

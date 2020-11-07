@@ -210,7 +210,7 @@ void EvolAlg::mutate()
                 continue;
             if (probability_(generator_) <= MOVE_GENE)
                 tmp_population_.at(pos).mutatePosition(gene_index);
-            else if (probability_(generator_) <= CHANGE_RADIUS)
+            else if (probability_(generator_) <= CHANGE_SHAPE)
                 tmp_population_.at(pos).mutateShape(gene_index);
             else if (probability_(generator_) <= CHANGE_COLOR)
                 tmp_population_.at(pos).mutateColor(gene_index);
