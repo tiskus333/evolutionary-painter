@@ -180,8 +180,8 @@ void EvolAlg::reproduce()
     // population_size - supermember times we choose new member for next generations
     for (unsigned int i = 0; i < population_size_ - SUPER_MEMBER_COUNT; ++i)
     {
-        index_a = probability_(generator_) * population_size_;
-        index_b = probability_(generator_) * population_size_;
+        index_a = probability_(generator_) * (population_size_ - SUPER_MEMBER_COUNT) + SUPER_MEMBER_COUNT;
+        index_b = probability_(generator_) * (population_size_ - SUPER_MEMBER_COUNT) + SUPER_MEMBER_COUNT;
         if (curr_population.at(index_a) < curr_population.at(index_b))
             tmp_population_.push_back(curr_population.at(index_a));
         else
