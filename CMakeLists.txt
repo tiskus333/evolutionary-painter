@@ -4,7 +4,7 @@ project(evolutionary-painter)
 
 add_compile_options(-Wall -O2)
 
-file(GLOB TARGET_SRC "./src/*.cpp" )
+file(GLOB TARGET_SRC "src/*.cpp" )
 ##set build directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS)
