@@ -48,7 +48,8 @@ void EvolAlg::init()
     {
         base_fitness_ += original_image_pixels_ptr_[i] * original_image_pixels_ptr_[i] +
                          original_image_pixels_ptr_[i + 1] * original_image_pixels_ptr_[i + 1] +
-                         original_image_pixels_ptr_[i + 2] * original_image_pixels_ptr_[i + 2];
+                         original_image_pixels_ptr_[i + 2] * original_image_pixels_ptr_[i + 2] +
+                         original_image_pixels_ptr_[i + 3] * original_image_pixels_ptr_[i + 3];
     }
 
     for (unsigned int i = 0; i < population_size_; ++i)

@@ -42,7 +42,8 @@ void Member::calculateFitness(const sf::Uint8 *const original_pixels_ptr)
         {
             fitness_local += (original_pixels_ptr[i + 0] - generated_pixels_ptr[i + 0]) * (original_pixels_ptr[i + 0] - generated_pixels_ptr[i + 0]) +
                              (original_pixels_ptr[i + 1] - generated_pixels_ptr[i + 1]) * (original_pixels_ptr[i + 1] - generated_pixels_ptr[i + 1]) +
-                             (original_pixels_ptr[i + 2] - generated_pixels_ptr[i + 2]) * (original_pixels_ptr[i + 2] - generated_pixels_ptr[i + 2]);
+                             (original_pixels_ptr[i + 2] - generated_pixels_ptr[i + 2]) * (original_pixels_ptr[i + 2] - generated_pixels_ptr[i + 2]) +
+                             (original_pixels_ptr[i + 3] - generated_pixels_ptr[i + 3]) * (original_pixels_ptr[i + 3] - generated_pixels_ptr[i + 3]);
         }
         fitness_ = fitness_local;
         modified_ = false;
