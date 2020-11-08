@@ -85,7 +85,7 @@ void Member::addGene()
     if (rectangles_.size() < max_rectangles_)
     {
         sf::Vector2f v1(rand() % image_x_size_, rand() % image_x_size_), v2(rand() % image_x_size_, rand() % image_y_size_);
-        sf::Color color(rand() % 256, rand() % 256, rand() % 256, 128);
+        sf::Color color(rand() % 256, rand() % 256, rand() % 256, rand() % 256);
         rectangles_.emplace_back(v1, color);
         rectangles_.emplace_back(sf::Vector2f(v2.x, v1.y), color);
         rectangles_.emplace_back(v2, color);
@@ -134,6 +134,7 @@ void Member::mutateColor(const unsigned int gene_index)
     tmp_color.r += distribution_(generator_);
     tmp_color.g += distribution_(generator_);
     tmp_color.b += distribution_(generator_);
+    tmp_color.a += distribution_(generator_);
     for (int i = 0; i < 4; ++i)
         rectangles_.at(gene_index + i).color = tmp_color;
     modified_ = true;
