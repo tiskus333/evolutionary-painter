@@ -14,7 +14,8 @@ EvolAlg::EvolAlg(/* args */) {}
  * @param genes_count
  * @param max_generations - maximal number of generations if 0 then then number of generations is not limited
  */
-EvolAlg::EvolAlg(const std::string &filename, const unsigned int population_size, const unsigned int genes_count, const unsigned int max_generations)
+EvolAlg::EvolAlg(const std::string &filename, const unsigned int population_size, const unsigned int genes_count, const unsigned int max_generations,
+                 bool window_visible)
     : input_file_(filename)
     , is_image_loaded_(false)
     , population_size_(population_size)
@@ -24,6 +25,7 @@ EvolAlg::EvolAlg(const std::string &filename, const unsigned int population_size
     , best_fitness_(0)
     , base_fitness_(0)
     , probability_(0, 1)
+    , show_window_(window_visible)
 {
     loadInputImage(filename);
     init();
@@ -71,7 +73,8 @@ void EvolAlg::init()
 
     original_image_texture_.loadFromImage(original_image_);
     original_image_sprite_.setTexture(original_image_texture_);
-    window_.create(sf::VideoMode(2 * image_x_size_ * scale, image_y_size_ * scale), "Image overview", sf::Style::Close);
+    if (show_window_)
+        window_.create(sf::VideoMode(2 * image_x_size_ * scale, image_y_size_ * scale), "Image overview", sf::Style::Close);
 }
 /**
  * @brief Start main loop of algorithm
@@ -79,26 +82,32 @@ void EvolAlg::init()
  */
 void EvolAlg::run()
 {
-    while (window_.isOpen() && (max_generations_ == 0 || generations_ < max_generations_))
+    while ((window_.isOpen() || !show_window_) && (max_generations_ == 0 || generations_ < max_generations_))
     {
-        sf::Event event;
-        while (window_.pollEvent(event))
+        if (show_window_)
         {
-            if (event.type == sf::Event::Closed)
+            sf::Event event;
+            while (window_.pollEvent(event))
             {
-                stop();
-                return;
-            }
-        };
+                if (event.type == sf::Event::Closed)
+                {
+                    stop();
+                    return;
+                }
+            };
+        }
         nextGeneration();
         best_fitness_ = curr_population.at(0).getFitness();
         best_member_texture_.update(curr_population.at(0).getTexture());
         best_member_sprite_.setTexture(best_member_texture_);
         best_member_sprite_.setPosition(image_x_size_, 0);
-        window_.clear();
-        window_.draw(best_member_sprite_);
-        window_.draw(original_image_sprite_);
-        window_.display();
+        if (show_window_)
+        {
+            window_.clear();
+            window_.draw(best_member_sprite_);
+            window_.draw(original_image_sprite_);
+            window_.display();
+        }
 
         notifyObservers();
     }

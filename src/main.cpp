@@ -14,6 +14,7 @@ void printHelp()
     cout << "          -p  population size (default 30)" << std::endl;
     cout << "          -g  gene pool, maximum number of rectangles on picture (default 1000)" << std::endl;
     cout << "          -c  end simulation after given amount of generations (empty or 0, no restriction)" << std::endl;
+    cout << "          -t  run in terminal mode only (without drawing window)" << std::endl;
     cout << "          -h  print help" << std::endl;
 }
 
@@ -49,11 +50,12 @@ int main(int argc, char *argv[])
     int population_size = 30;
     int gene_count = 1000;
     int max_generations = 0;
+    int render_window = true;
     std::string filename = "";
 
     try
     {
-        while ((option = getopt(argc, argv, ":i:p:g:hc:")) != -1)
+        while ((option = getopt(argc, argv, ":i:p:g:thc:")) != -1)
         { // get option from the getopt() method
             switch (option)
             {
@@ -69,6 +71,9 @@ int main(int argc, char *argv[])
                 population_size = std::stoi(optarg);
                 if (population_size <= 0)
                     throw("Population size must be greater than 0");
+                break;
+            case 't':
+                render_window = false;
                 break;
             case 'g':
                 gene_count = std::stoi(optarg);
@@ -122,7 +127,7 @@ int main(int argc, char *argv[])
     cout << "\nPopulation size: " << population_size;
     cout << "\nMaximal number of rectangles: " << gene_count << std::endl;
 
-    EvolAlg p(filename, population_size, gene_count, max_generations);
+    EvolAlg p(filename, population_size, gene_count, max_generations, render_window);
 
     StatsObserver o;
     o.setObservedEvolAlg(&p);

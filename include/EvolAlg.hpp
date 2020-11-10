@@ -62,10 +62,13 @@ class EvolAlg
 
     // GUI
     sf::RenderWindow window_;
+    bool show_window_;
+    sf::Context some_context;
 
   public:
     EvolAlg(/* args */);
-    EvolAlg(const std::string &filename, const unsigned int size, const unsigned int genes_count, const unsigned int max_generations = 0);
+    EvolAlg(const std::string &filename, const unsigned int size, const unsigned int genes_count, const unsigned int max_generations = 0,
+            bool window_visible = true);
     ~EvolAlg();
 
     bool loadInputImage(const std::string &filename);
