@@ -9,6 +9,10 @@ typedef std::lock_guard<std::mutex> lock;
 
 class ResultsContainer
 {
+  private:
+    list<unsigned long long> fitness_list_;
+    list<uint> generation_list_;
+
   public:
     ResultsContainer(list<unsigned long long> fitness_list, list<uint> generation_list)
         : fitness_list_(fitness_list)
@@ -17,8 +21,8 @@ class ResultsContainer
     }
     ResultsContainer(){};
 
-    list<unsigned long long> fitness_list_;
-    list<uint> generation_list_;
+    list<uint> getGenerations() { return generation_list_; }
+    list<unsigned long long> getFitnesses() { return fitness_list_; }
 };
 
 class StatsObserver : public EvolAlgObserver
