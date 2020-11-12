@@ -5,6 +5,7 @@
 #include "mutex"
 
 using std::list;
+typedef std::lock_guard<std::mutex> lock;
 
 class ResultsContainer
 {
