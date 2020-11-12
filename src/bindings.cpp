@@ -3,7 +3,8 @@
 #include <vector>
 
 #include "Member.hpp"
-#include <EvolAlg.hpp>
+#include "EvolAlg.hpp"
+#include "StatsObserver.hpp"
 
 char const *greet() { return "hello World"; }
 

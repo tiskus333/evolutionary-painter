@@ -86,6 +86,8 @@ class EvolAlg
     bool isImageLoaded() { return is_image_loaded_; }
     double getPercentFitness();
     unsigned long long getbestFitness() { return best_fitness_; }
+    unsigned int getPopulationSize() { return population_size_; }
+    unsigned int getMaxGeneCount() { return max_genes_; }
 
     void nextGeneration();
 };
