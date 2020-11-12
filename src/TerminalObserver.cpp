@@ -1,15 +1,15 @@
 
-#include "StatsObserver.hpp"
+#include "TerminalObserver.hpp"
 #include <iomanip>
 
-StatsObserver::StatsObserver() { std::cout << "\e[?25l"; }
+TerminalObserver::TerminalObserver() { std::cout << "\e[?25l"; }
 
-StatsObserver::~StatsObserver() { std::cout << "\e[?25h"; }
+TerminalObserver::~TerminalObserver() { std::cout << "\e[?25h"; }
 
 /**
  * @brief method inherited from EvolAlgObserver
  */
-void StatsObserver::update()
+void TerminalObserver::update()
 {
     if (!started_)
     {
@@ -35,11 +35,11 @@ void StatsObserver::update()
 }
 
 /**
- * @brief Register this observer in EvolAlg's list and save pointer to this EvolAlg in StatsObserver
+ * @brief Register this observer in EvolAlg's list and save pointer to this EvolAlg in TerminalObserver
  *
  * @param p -pointer to observed EvolAlg
  */
-void StatsObserver::setObservedEvolAlg(EvolAlg *p)
+void TerminalObserver::setObservedEvolAlg(EvolAlg *p)
 {
     observed_EvolAlg_ = p;
     p->addObserver(this);

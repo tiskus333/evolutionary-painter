@@ -5,14 +5,14 @@
 #include "EvolAlgObserver.hpp"
 
 /**
- * @brief Observer class used for printing statistics for EvolAlg.
+ * @brief Observer class used for printing statistics for EvolAlg in terminal.
  * It shows
  * - current generation
  * - generation speed (Gen/s)
  * - fitness (in precents)
  *
  */
-class StatsObserver : EvolAlgObserver
+class TerminalObserver : EvolAlgObserver
 {
   private:
     EvolAlg *observed_EvolAlg_ = nullptr;
@@ -27,8 +27,8 @@ class StatsObserver : EvolAlgObserver
     int refresh_time_ = 100; // in miliseconds
 
   public:
-    StatsObserver();
-    ~StatsObserver();
+    TerminalObserver();
+    ~TerminalObserver();
 
     virtual void update();
     void setObservedEvolAlg(EvolAlg *p);

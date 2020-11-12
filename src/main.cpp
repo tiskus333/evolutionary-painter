@@ -1,6 +1,6 @@
 #include "EvolAlg.hpp"
 #include "Member.hpp"
-#include "StatsObserver.hpp"
+#include "TerminalObserver.hpp"
 #include <iostream>
 #include <string.h>
 #include <unistd.h>
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
 
     EvolAlg p(filename, population_size, gene_count, max_generations, render_window);
 
-    StatsObserver o;
+    TerminalObserver o;
     o.setObservedEvolAlg(&p);
     srand(time(NULL));
     p.run();
