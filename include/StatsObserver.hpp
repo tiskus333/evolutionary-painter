@@ -6,6 +6,20 @@
 
 using std::list;
 
+class ResultsContainer
+{
+  public:
+    ResultsContainer(list<unsigned long long> fitness_list, list<uint> generation_list)
+        : fitness_list_(fitness_list)
+        , generation_list_(generation_list)
+    {
+    }
+    ResultsContainer(){};
+
+    list<unsigned long long> fitness_list_;
+    list<uint> generation_list_;
+};
+
 class StatsObserver : public EvolAlgObserver
 {
   private:
@@ -26,4 +40,5 @@ class StatsObserver : public EvolAlgObserver
 
     list<unsigned long long> getFitnesses();
     list<uint> getGenerations();
+    ResultsContainer getGenerationsAndFitness();
 };

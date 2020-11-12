@@ -18,3 +18,21 @@ void StatsObserver::setObservedEvolAlg(EvolAlg *p)
     max_gene_count = p->getMaxGeneCount();
     population_size = p->getPopulationSize();
 }
+
+list<unsigned long long> StatsObserver::getFitnesses()
+{
+    std::lock_guard(lists_mutex_);
+    return fitness_list_;
+}
+
+list<uint> StatsObserver::getGenerations()
+{
+    std::lock_guard(lists_mutex_);
+    return generation_list_;
+}
+
+ResultsContainer StatsObserver::getGenerationsAndFitness()
+{
+    std::lock_guard(lists_mutex_);
+    return ResultsContainer(fitness_list_,generation_list_);
+}
