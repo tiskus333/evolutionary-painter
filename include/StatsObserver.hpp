@@ -41,7 +41,7 @@ class StatsObserver : public EvolAlgObserver
     StatsObserver();
     ~StatsObserver();
     virtual void update();
-    void setObservedEvolAlg(EvolAlg *p);
+    void setObservedEvolAlg(EvolAlg &p);
 
     list<unsigned long long> getFitnesses();
     list<uint> getGenerations();
