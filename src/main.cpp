@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
             cout << "Wrong value of parameter -" << char(option) << std::endl;
         } else
         {
-            cout << "Unknown exception occured: " << e.what() << std::endl;
+            cout << "Unknown exception occurred: " << e.what() << std::endl;
         }
         printHelp();
         return -1;
