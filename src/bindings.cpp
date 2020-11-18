@@ -5,6 +5,7 @@
 #include "EvolAlg.hpp"
 #include "Member.hpp"
 #include "StatsObserver.hpp"
+#include "TerminalObserver.hpp"
 
 char const *greet() { return "hello World"; }
 
@@ -53,6 +54,8 @@ BOOST_PYTHON_MODULE(bindings)
     class_<ResultsContainer>("ResultsContainer")
         .def("fit", &ResultsContainer::getFitnesses)
         .def("gen", &ResultsContainer::getGenerations);
+    class_<TerminalObserver, boost::noncopyable>("TerminalObserver")
+        .def("setObserved", &TerminalObserver::setObservedEvolAlgRef);
     to_python_converter<std::vector<std::string, std::allocator<std::string>>, VecToList<std::string>>();
     to_python_converter<std::vector<int, std::allocator<int>>, VecToList<int>>();
     to_python_converter<std::list<uint, std::allocator<uint>>, ListToPyList<uint>>();

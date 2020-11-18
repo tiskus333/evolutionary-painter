@@ -32,6 +32,7 @@ class TerminalObserver : EvolAlgObserver
 
     virtual void update();
     void setObservedEvolAlg(EvolAlg *p);
+    void setObservedEvolAlgRef(EvolAlg &p) { setObservedEvolAlg(&p); }
 };
 
 #endif // STATS_OBSERVER

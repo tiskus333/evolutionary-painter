@@ -58,6 +58,8 @@ class BindWrapper(object):
 
         self._stats = StatsObserver()
         self._stats.setObserved(self._evol)
+        ter = TerminalObserver()
+        ter.setObserved(self._evol)
 
         self._evol.run()
 
