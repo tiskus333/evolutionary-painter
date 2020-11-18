@@ -1,37 +1,49 @@
-#ifndef STATS_OBSERVER
-#define STATS_OBSERVER
+
 
 #include "EvolAlg.hpp"
 #include "EvolAlgObserver.hpp"
+#include "mutex"
 
-/**
- * @brief Observer class used for printing statistics for EvolAlg.
- * It shows
- * - current generation
- * - generation speed (Gen/s)
- * - fitness (in precents)
- *
- */
-class StatsObserver : EvolAlgObserver
+using std::list;
+typedef std::lock_guard<std::mutex> lock;
+
+class ResultsContainer
+{
+  private:
+    list<double> fitness_list_;
+    list<uint> generation_list_;
+
+  public:
+    ResultsContainer(list<double> fitness_list, list<uint> generation_list)
+        : fitness_list_(fitness_list)
+        , generation_list_(generation_list)
+    {
+    }
+    ResultsContainer(){};
+
+    list<uint> getGenerations() { return generation_list_; }
+    list<double> getFitnesses() { return fitness_list_; }
+};
+
+class StatsObserver : public EvolAlgObserver
 {
   private:
     EvolAlg *observed_EvolAlg_ = nullptr;
 
-    sf::Clock clock;
-    unsigned long long first_generation_;
-    unsigned long long first_fitness_;
-
-    bool started_ = false;
-
-    sf::Clock view_timer_;
-    int refresh_time_ = 100; // in miliseconds
+    list<double> fitness_list_;
+    list<uint> generation_list_;
+    std::mutex lists_mutex_;
 
   public:
+    uint max_gene_count;
+    uint population_size;
+
     StatsObserver();
     ~StatsObserver();
-
     virtual void update();
-    void setObservedEvolAlg(EvolAlg *p);
-};
+    void setObservedEvolAlg(EvolAlg &p);
 
-#endif // STATS_OBSERVER
+    list<double> getFitnesses();
+    list<uint> getGenerations();
+    ResultsContainer getGenerationsAndFitness();
+};

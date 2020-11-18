@@ -1,46 +1,38 @@
-
 #include "StatsObserver.hpp"
-#include <iomanip>
 
-StatsObserver::StatsObserver() { std::cout << "\e[?25l"; }
+StatsObserver::StatsObserver() {}
 
-StatsObserver::~StatsObserver() { std::cout << "\e[?25h"; }
+StatsObserver::~StatsObserver() {}
 
-/**
- * @brief method inherited from EvolAlgObserver
- */
 void StatsObserver::update()
 {
-    if (!started_)
-    {
-        clock.restart();
-        view_timer_.restart();
-        first_generation_ = observed_EvolAlg_->getGeneration();
-        first_fitness_ = observed_EvolAlg_->getBestFitness();
-        if (first_fitness_ != 0)
-        {
-            started_ = true;
-        }
-        return;
-    }
-    if (view_timer_.getElapsedTime().asMilliseconds() > refresh_time_)
-    {
-        view_timer_.restart();
-        auto speed = (observed_EvolAlg_->getGeneration() - first_generation_) / clock.getElapsedTime().asSeconds();
-        std::cout << "\rGeneration: " << std::setw(7) << std::left << observed_EvolAlg_->getGeneration();
-        std::cout << " Gen/s: " << std::left << std::setw(6) << std::setprecision(5) << speed;
-        std::cout << "  Fitness: " << std::setw(6) << std::left << observed_EvolAlg_->getPercentFitness() * 100.0 << "% " << std::flush;
-        std::cout << " Time: " << std::setw(5) << std::left << clock.getElapsedTime().asSeconds() << "s  ";
-    }
+    lock guard(lists_mutex_);
+    generation_list_.push_back(observed_EvolAlg_->getGeneration());
+    fitness_list_.push_back(observed_EvolAlg_->getPercentFitness());
 }
 
-/**
- * @brief Register this observer in EvolAlg's list and save pointer to this EvolAlg in StatsObserver
- *
- * @param p -pointer to observed EvolAlg
- */
-void StatsObserver::setObservedEvolAlg(EvolAlg *p)
+void StatsObserver::setObservedEvolAlg(EvolAlg &p)
 {
-    observed_EvolAlg_ = p;
-    p->addObserver(this);
+    observed_EvolAlg_ = &p;
+    p.addObserver(this);
+    max_gene_count = p.getMaxGeneCount();
+    population_size = p.getPopulationSize();
+}
+
+list<double> StatsObserver::getFitnesses()
+{
+    lock guard(lists_mutex_);
+    return fitness_list_;
+}
+
+list<uint> StatsObserver::getGenerations()
+{
+    lock guard(lists_mutex_);
+    return generation_list_;
+}
+
+ResultsContainer StatsObserver::getGenerationsAndFitness()
+{
+    lock guard(lists_mutex_);
+    return ResultsContainer(fitness_list_, generation_list_);
 }

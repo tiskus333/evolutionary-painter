@@ -10,3 +10,5 @@ bin/
 generated.jpg
 generated_*.jpg
 
+#python
+__pycache__
