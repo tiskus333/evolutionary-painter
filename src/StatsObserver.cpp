@@ -8,7 +8,7 @@ void StatsObserver::update()
 {
     lock guard(lists_mutex_);
     generation_list_.push_back(observed_EvolAlg_->getGeneration());
-    fitness_list_.push_back(observed_EvolAlg_->getbestFitness());
+    fitness_list_.push_back(observed_EvolAlg_->getPercentFitness());
 }
 
 void StatsObserver::setObservedEvolAlg(EvolAlg &p)
@@ -19,7 +19,7 @@ void StatsObserver::setObservedEvolAlg(EvolAlg &p)
     population_size = p.getPopulationSize();
 }
 
-list<unsigned long long> StatsObserver::getFitnesses()
+list<double> StatsObserver::getFitnesses()
 {
     lock guard(lists_mutex_);
     return fitness_list_;

@@ -56,5 +56,5 @@ BOOST_PYTHON_MODULE(bindings)
     to_python_converter<std::vector<std::string, std::allocator<std::string>>, VecToList<std::string>>();
     to_python_converter<std::vector<int, std::allocator<int>>, VecToList<int>>();
     to_python_converter<std::list<uint, std::allocator<uint>>, ListToPyList<uint>>();
-    to_python_converter<std::list<unsigned long long, std::allocator<unsigned long long>>, ListToPyList<unsigned long long>>();
+    to_python_converter<std::list<double, std::allocator<double>>, ListToPyList<double>>();
 }
