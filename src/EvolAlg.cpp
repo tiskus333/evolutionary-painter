@@ -44,13 +44,9 @@ void EvolAlg::init()
     best_member_texture_.create(image_x_size_, image_y_size_);
     original_image_pixels_ptr_ = original_image_.getPixelsPtr();
 
-    for (unsigned int i = 0; i < image_y_size_ * image_x_size_ * 4; i += 4)
-    {
-        base_fitness_ += original_image_pixels_ptr_[i] * original_image_pixels_ptr_[i] +
-                         original_image_pixels_ptr_[i + 1] * original_image_pixels_ptr_[i + 1] +
-                         original_image_pixels_ptr_[i + 2] * original_image_pixels_ptr_[i + 2] +
-                         original_image_pixels_ptr_[i + 3] * original_image_pixels_ptr_[i + 3];
-    }
+    for (unsigned int i = 0; i < image_y_size_ * image_x_size_ * 4; i ++)
+        base_fitness_ += original_image_pixels_ptr_[i];
+
 
     for (unsigned int i = 0; i < population_size_; ++i)
     {
@@ -235,4 +231,4 @@ void EvolAlg::succesion()
  *
  * @return double
  */
-double EvolAlg::getPercentFitness() { return 1.0 - sqrt((best_fitness_ / static_cast<double>(base_fitness_))); }
+double EvolAlg::getPercentFitness() { return 1.0 - (best_fitness_ / static_cast<double>(base_fitness_)); }

@@ -26,7 +26,7 @@ void Member::calculateFitness(const sf::Uint8 *const original_pixels_ptr)
 {
     if (modified_) // skip if nothing changed
     {
-        unsigned long fitness_local = 0;
+        
         sf::RenderTexture generated_texture;
         generated_texture.create(image_x_size_, image_y_size_);
         generated_texture.clear();
@@ -38,14 +38,9 @@ void Member::calculateFitness(const sf::Uint8 *const original_pixels_ptr)
         if (!generated_pixels_ptr || !original_pixels_ptr)
             std::cout << "blad wskaznikow" << std::endl;
 
-        for (unsigned int i = 0; i < image_x_size_ * image_y_size_ * 4; i += 4)
-        {
-            fitness_local += (original_pixels_ptr[i + 0] - generated_pixels_ptr[i + 0]) * (original_pixels_ptr[i + 0] - generated_pixels_ptr[i + 0]) +
-                             (original_pixels_ptr[i + 1] - generated_pixels_ptr[i + 1]) * (original_pixels_ptr[i + 1] - generated_pixels_ptr[i + 1]) +
-                             (original_pixels_ptr[i + 2] - generated_pixels_ptr[i + 2]) * (original_pixels_ptr[i + 2] - generated_pixels_ptr[i + 2]) +
-                             (original_pixels_ptr[i + 3] - generated_pixels_ptr[i + 3]) * (original_pixels_ptr[i + 3] - generated_pixels_ptr[i + 3]);
-        }
-        fitness_ = fitness_local;
+        fitness_ = 0;
+        for (unsigned int i = 0; i < image_x_size_ * image_y_size_ * 4; ++i)
+            fitness_ += abs(original_pixels_ptr[i] - generated_pixels_ptr[i]);
         modified_ = false;
     }
 }
