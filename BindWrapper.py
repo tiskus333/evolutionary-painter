@@ -79,7 +79,7 @@ class BindWrapper(object):
         plot.plot(gen, fit)
         plt.show()
 
-    def test_multiple_times(self, changed_field: str, min_value, max_value, step=10):
+    def test_multiple_times(self, changed_field: str, min_value, max_value, step=10, number_of_tries=1):
         '''changed can be either "size" or "genes_count"
         '''
         setting_func = None
@@ -89,20 +89,23 @@ class BindWrapper(object):
             setting_func = self._set_genes_count
         else:
             raise ValueError
-        
+
         results = dict()
         current_value = min_value
         while current_value <= max_value:
             setting_func(current_value)
-            self.run()
-            gen, fit = self.get_data()
+            multiple_fits = []
+            for num in range(number_of_tries):
+                self.run()
+                gen, fit = self.get_data()
+                multiple_fits.append(fit)
+
             if "gen" not in results.keys():
                 results["gen"] = gen
-            results[current_value] = fit
+            results[current_value] = self._list_avg(multiple_fits)
             current_value += step
-        
-        return results
 
+        return results
 
     def _set_size(self, number: int) -> int:
         self.size = number
@@ -111,3 +114,12 @@ class BindWrapper(object):
     def _set_genes_count(self, number: int) -> int:
         self.genes_count = number
         return self.genes_count
+    
+    @staticmethod
+    def _list_avg(lists_of_lists):
+        sums = [sum(x) for x in zip(*lists_of_lists)]
+        result = []
+        for s in sums:
+            result.append(s/len(lists_of_lists))
+        return result
+
