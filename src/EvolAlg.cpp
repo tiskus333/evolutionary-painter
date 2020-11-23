@@ -15,7 +15,7 @@ EvolAlg::EvolAlg(/* args */) {}
  * @param max_generations - maximal number of generations if 0 then then number of generations is not limited
  */
 EvolAlg::EvolAlg(const std::string &filename, const unsigned int population_size, const unsigned int genes_count, const unsigned int max_generations,
-                 bool window_visible)
+                 bool window_visible, bool save_output_image)
     : input_file_(filename)
     , is_image_loaded_(false)
     , population_size_(population_size)
@@ -26,6 +26,7 @@ EvolAlg::EvolAlg(const std::string &filename, const unsigned int population_size
     , base_fitness_(0)
     , probability_(0, 1)
     , show_window_(window_visible)
+    , save_output_image_(save_output_image)
 {
     loadInputImage(filename);
     init();
@@ -46,9 +47,8 @@ void EvolAlg::init()
     best_member_texture_.create(image_x_size_, image_y_size_);
     original_image_pixels_ptr_ = original_image_.getPixelsPtr();
 
-    for (unsigned int i = 0; i < image_y_size_ * image_x_size_ * 4; i ++)
+    for (unsigned int i = 0; i < image_y_size_ * image_x_size_ * 4; i++)
         base_fitness_ += original_image_pixels_ptr_[i];
-
 
     for (unsigned int i = 0; i < population_size_; ++i)
     {
@@ -154,8 +154,11 @@ void EvolAlg::stop()
     output_file << "_" << generations_;                                                            // number of generation
     output_file << "_" << getPercentFitness() * 100.0 << "percent.jpg";                            // fitness in percent and filetype
 
-    curr_population.at(0).getTexture().copyToImage().saveToFile(output_file.str());
-    std::cout << std::endl << "File saved as: \"" << output_file.str() << "\"" << std::endl;
+    if (save_output_image_)
+    {
+        curr_population.at(0).getTexture().copyToImage().saveToFile(output_file.str());
+        std::cout << std::endl << "File saved as: \"" << output_file.str() << "\"" << std::endl;
+    }
     if (window_.isOpen())
         window_.close();
 }

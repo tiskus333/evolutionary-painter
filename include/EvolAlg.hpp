@@ -64,11 +64,12 @@ class EvolAlg
     sf::RenderWindow window_;
     bool show_window_;
     sf::Context some_context;
+    bool save_output_image_;
 
   public:
     EvolAlg(/* args */);
     EvolAlg(const std::string &filename, const unsigned int size, const unsigned int genes_count, const unsigned int max_generations = 0,
-            bool window_visible = true);
+            bool window_visible = true, bool save_output_image = true);
     ~EvolAlg();
 
     bool loadInputImage(const std::string &filename);

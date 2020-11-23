@@ -35,13 +35,15 @@ class BindWrapper(object):
         self.genes_count = 500
         self.max_generation = 0
         self.has_window = True
+        self.save_result_image = False
 
     @staticmethod
     def generate_EvolAlg(filename=None,
                          size: int = 30,
                          genes_count: int = 500,
                          max_generation=0,
-                         window_visibility=True) -> EvolAlg:
+                         window_visibility=True,
+                         save_result=False) -> EvolAlg:
 
         if filename is None:
             completed = subprocess.run(
@@ -49,12 +51,12 @@ class BindWrapper(object):
             filename = completed.stdout[0:-1]
 
         evolution = EvolAlg(filename, size, genes_count,
-                            max_generation, window_visibility)
+                            max_generation, window_visibility, save_result)
         return evolution
 
     def run(self):
         self._evol = self.generate_EvolAlg(
-            self.filename, self.size, self.genes_count, self.max_generation, self.has_window)
+            self.filename, self.size, self.genes_count, self.max_generation, self.has_window, self.save_result_image)
 
         self._stats = StatsObserver()
         self._stats.setObserved(self._evol)
@@ -76,4 +78,48 @@ class BindWrapper(object):
         gen = results.gen()
         plot.plot(gen, fit)
         plt.show()
+
+    def test_multiple_times(self, changed_field: str, min_value, max_value, step=10, number_of_tries=1):
+        '''changed can be either "size" or "genes_count"
+        '''
+        setting_func = None
+        if changed_field == "size":
+            setting_func = self._set_size
+        elif changed_field == "genes_count":
+            setting_func = self._set_genes_count
+        else:
+            raise ValueError
+
+        results = dict()
+        current_value = min_value
+        while current_value <= max_value:
+            setting_func(current_value)
+            multiple_fits = []
+            for num in range(number_of_tries):
+                self.run()
+                gen, fit = self.get_data()
+                multiple_fits.append(fit)
+
+            if "gen" not in results.keys():
+                results["gen"] = gen
+            results[current_value] = self._list_avg(multiple_fits)
+            current_value += step
+
+        return results
+
+    def _set_size(self, number: int) -> int:
+        self.size = number
+        return self.size
+
+    def _set_genes_count(self, number: int) -> int:
+        self.genes_count = number
+        return self.genes_count
+    
+    @staticmethod
+    def _list_avg(lists_of_lists):
+        sums = [sum(x) for x in zip(*lists_of_lists)]
+        result = []
+        for s in sums:
+            result.append(s/len(lists_of_lists))
+        return result
 
