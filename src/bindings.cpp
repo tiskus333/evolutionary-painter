@@ -43,7 +43,7 @@ BOOST_PYTHON_MODULE(bindings)
 {
     class_<Member>("Member", no_init).def(init<unsigned int, const unsigned int, const unsigned int>()).def("isModified", &Member::isModified);
     class_<EvolAlg, boost::noncopyable>("EvolAlg", no_init)
-        .def(init<const std::string, const unsigned int, const unsigned int, const unsigned int, bool>())
+        .def(init<const std::string, const unsigned int, const unsigned int, const unsigned int, bool, bool>())
         .def("isRunning", &EvolAlg::isRunning)
         .def("stop", &EvolAlg::stop)
         .def("run", &EvolAlg::run);

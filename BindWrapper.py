@@ -35,13 +35,15 @@ class BindWrapper(object):
         self.genes_count = 500
         self.max_generation = 0
         self.has_window = True
+        self.save_result_image = False
 
     @staticmethod
     def generate_EvolAlg(filename=None,
                          size: int = 30,
                          genes_count: int = 500,
                          max_generation=0,
-                         window_visibility=True) -> EvolAlg:
+                         window_visibility=True,
+                         save_result=False) -> EvolAlg:
 
         if filename is None:
             completed = subprocess.run(
@@ -49,12 +51,12 @@ class BindWrapper(object):
             filename = completed.stdout[0:-1]
 
         evolution = EvolAlg(filename, size, genes_count,
-                            max_generation, window_visibility)
+                            max_generation, window_visibility, save_result)
         return evolution
 
     def run(self):
         self._evol = self.generate_EvolAlg(
-            self.filename, self.size, self.genes_count, self.max_generation, self.has_window)
+            self.filename, self.size, self.genes_count, self.max_generation, self.has_window, self.save_result_image)
 
         self._stats = StatsObserver()
         self._stats.setObserved(self._evol)
@@ -76,4 +78,3 @@ class BindWrapper(object):
         gen = results.gen()
         plot.plot(gen, fit)
         plt.show()
-
