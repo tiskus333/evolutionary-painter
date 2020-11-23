@@ -78,3 +78,36 @@ class BindWrapper(object):
         gen = results.gen()
         plot.plot(gen, fit)
         plt.show()
+
+    def test_multiple_times(self, changed_field: str, min_value, max_value, step=10):
+        '''changed can be either "size" or "genes_count"
+        '''
+        setting_func = None
+        if changed_field == "size":
+            setting_func = self._set_size
+        elif changed_field == "genes_count":
+            setting_func = self._set_genes_count
+        else:
+            raise ValueError
+        
+        results = dict()
+        current_value = min_value
+        while current_value <= max_value:
+            setting_func(current_value)
+            self.run()
+            gen, fit = self.get_data()
+            if "gen" not in results.keys():
+                results["gen"] = gen
+            results[current_value] = fit
+            current_value += step
+        
+        return results
+
+
+    def _set_size(self, number: int) -> int:
+        self.size = number
+        return self.size
+
+    def _set_genes_count(self, number: int) -> int:
+        self.genes_count = number
+        return self.genes_count
