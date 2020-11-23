@@ -25,6 +25,7 @@ pip3 install numpy matplotlib
 ### Download and nuild
 ```
 git clone https://gitlab.com/pktiuk/evolutionary-painter.git
+cd evolutionary-painter
 mkdir build
 cd build
 cmake ..
