@@ -14,7 +14,7 @@ Application recreating image by drawing multiple rectangles. To achieve it we ar
 
 **Packages**
 ```
-sudo apt-get install cmake libboost-python-dev python3 libsfml-dev
+sudo apt-get install cmake libboost-python-dev python3 libsfml-dev python3-pip
 ```
 
 **Python packages**
@@ -22,8 +22,9 @@ sudo apt-get install cmake libboost-python-dev python3 libsfml-dev
 pip3 install numpy matplotlib
 ```
 
-### Build
+### Download and nuild
 ```
+git clone https://gitlab.com/pktiuk/evolutionary-painter.git
 mkdir build
 cd build
 cmake ..
