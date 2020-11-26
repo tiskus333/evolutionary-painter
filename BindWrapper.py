@@ -36,6 +36,7 @@ class BindWrapper(object):
         self.max_generation = 0
         self.has_window = True
         self.save_result_image = False
+        self.execution_timeout = 0
 
     @staticmethod
     def generate_EvolAlg(filename=None,
@@ -58,7 +59,7 @@ class BindWrapper(object):
         self._evol = self.generate_EvolAlg(
             self.filename, self.size, self.genes_count, self.max_generation, self.has_window, self.save_result_image)
 
-        self._stats = StatsObserver()
+        self._stats = StatsObserver(self.execution_timeout)
         self._stats.setObserved(self._evol)
         ter = TerminalObserver()
         ter.setObserved(self._evol)

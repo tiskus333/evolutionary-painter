@@ -49,6 +49,7 @@ BOOST_PYTHON_MODULE(bindings)
         .def("run", &EvolAlg::run);
     def("greet", greet);
     class_<StatsObserver, boost::noncopyable>("StatsObserver")
+        .def(init<uint>())
         .def("setObserved", &StatsObserver::setObservedEvolAlg)
         .def("get", &StatsObserver::getGenerationsAndFitness);
     class_<ResultsContainer>("ResultsContainer")

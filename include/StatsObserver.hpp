@@ -1,4 +1,4 @@
-
+#include <chrono>
 
 #include "EvolAlg.hpp"
 #include "EvolAlgObserver.hpp"
@@ -6,6 +6,7 @@
 
 using std::list;
 typedef std::lock_guard<std::mutex> lock;
+using namespace std::chrono;
 
 class ResultsContainer
 {
@@ -34,11 +35,16 @@ class StatsObserver : public EvolAlgObserver
     list<uint> generation_list_;
     std::mutex lists_mutex_;
 
+    bool is_timer_initialized_ = false;
+    std::chrono::_V2::steady_clock::time_point start_time_;
+    uint duration_time_;
+
   public:
     uint max_gene_count;
     uint population_size;
 
     StatsObserver();
+    StatsObserver(uint timeout);
     ~StatsObserver();
     virtual void update();
     void setObservedEvolAlg(EvolAlg &p);
