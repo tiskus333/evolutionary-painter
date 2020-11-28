@@ -141,6 +141,9 @@ void EvolAlg::notifyObservers()
  */
 void EvolAlg::stop()
 {
+    show_window_ = true;
+    if (save_output_image_)
+    {
     std::stringstream output_file;
     std::string name;
     size_t path_len;
@@ -154,8 +157,6 @@ void EvolAlg::stop()
     output_file << "_" << generations_;                                                            // number of generation
     output_file << "_" << getPercentFitness() * 100.0 << "percent.jpg";                            // fitness in percent and filetype
 
-    if (save_output_image_)
-    {
         curr_population.at(0).getTexture().copyToImage().saveToFile(output_file.str());
         std::cout << std::endl << "File saved as: \"" << output_file.str() << "\"" << std::endl;
     }
