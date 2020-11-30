@@ -17,6 +17,7 @@ void printHelp()
     cout << "          -c  end simulation after given amount of generations (empty or 0, no restriction)" << std::endl;
     cout << "          -w  windowless mode only (without drawing window, only terminal output)" << std::endl;
     cout << "          -t  limit execution time (in seconds)" << std::endl;
+    cout << "          -d  save data to csv file (specify filename here without .csv extension)" << std::endl;
     cout << "          -h  print help" << std::endl;
 }
 
@@ -56,15 +57,19 @@ int main(int argc, char *argv[])
     uint time_limit = 0;
 
     std::string filename = "";
+    std::string data_filename = "";
 
     try
     {
-        while ((option = getopt(argc, argv, ":i:p:t:g:whc:")) != -1)
+        while ((option = getopt(argc, argv, ":i:p:d:t:g:whc:")) != -1)
         { // get option from the getopt() method
             switch (option)
             {
             case 'i':
                 filename = optarg;
+                break;
+            case 'd':
+                data_filename = optarg;
                 break;
             case 'h':
                 printHelp();
@@ -140,12 +145,17 @@ int main(int argc, char *argv[])
 
     TerminalObserver o;
     StatsObserver stats_observer(time_limit);
-    if (time_limit > 0)
+    if (time_limit > 0 || data_filename != "")
     {
         stats_observer.setObservedEvolAlg(p);
     }
     o.setObservedEvolAlg(&p);
     srand(time(NULL));
     p.run();
+    if (data_filename != "")
+    {
+        stats_observer.getGenerationsAndFitness().exportToCsv(data_filename);
+        std::cout << "Data exported to file: " << filename << ".csv\n"
+    }
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <chrono>
+#include <fstream>
 
 #include "EvolAlg.hpp"
 #include "EvolAlgObserver.hpp"
@@ -24,6 +25,7 @@ class ResultsContainer
 
     list<uint> getGenerations() { return generation_list_; }
     list<double> getFitnesses() { return fitness_list_; }
+    void exportToCsv(std::string filename);
 };
 
 class StatsObserver : public EvolAlgObserver

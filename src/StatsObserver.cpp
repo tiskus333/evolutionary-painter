@@ -59,3 +59,20 @@ ResultsContainer StatsObserver::getGenerationsAndFitness()
     lock guard(lists_mutex_);
     return ResultsContainer(fitness_list_, generation_list_);
 }
+
+void ResultsContainer::exportToCsv(std::string filename)
+{
+
+    filename = filename + ".csv";
+
+    std::ofstream file(filename, std::ofstream::out);
+    auto iter_gen = generation_list_.begin();
+    auto iter_fit = fitness_list_.begin();
+    while (iter_gen != generation_list_.end())
+    {
+        file << *iter_gen << ";" << *iter_fit << std::endl;
+        iter_gen++;
+        iter_fit++;
+    }
+    file.close();
+}
