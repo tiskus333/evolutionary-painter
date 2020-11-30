@@ -1,3 +1,11 @@
+/**
+ * @file bindings.cpp
+ * @author Paweł Kotiuk
+ * @brief File containing bingings to python
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #include <boost/python.hpp>
 #include <boost/python/raw_function.hpp>
 #include <vector>

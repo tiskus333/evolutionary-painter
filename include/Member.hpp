@@ -1,3 +1,11 @@
+/**
+ * @file Member.hpp
+ * @author Mateusz Chruściel
+ * @brief File containing class Member
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #ifndef MEMBER_HPP_
 #define MEMBER_HPP_
 #include <SFML/Graphics.hpp>

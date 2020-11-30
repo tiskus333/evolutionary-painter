@@ -1,3 +1,10 @@
+/**
+ * @file EvolAlgObserver.hpp
+ * @author Paweł Kotiuk
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #ifndef EVOL_ALG_OBSERVER
 #define EVOL_ALG_OBSERVER
 

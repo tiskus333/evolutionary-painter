@@ -1,3 +1,12 @@
+/**
+ * @file main.cpp
+ * @author Paweł Kotiuk
+ * @brief Main file
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #include "EvolAlg.hpp"
 #include "Member.hpp"
 #include "StatsObserver.hpp"

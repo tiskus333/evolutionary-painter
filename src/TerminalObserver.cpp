@@ -1,4 +1,10 @@
-
+/**
+ * @file TerminalObserver.cpp
+ * @author Paweł Kotiuk
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #include "TerminalObserver.hpp"
 #include <iomanip>
 

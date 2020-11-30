@@ -1,3 +1,11 @@
+/**
+ * @file StatsObserver.hpp
+ * @author Paweł Kotiuk
+ * @brief File containg header describing class TerminalObserver
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #ifndef STATS_OBSERVER
 #define STATS_OBSERVER
 

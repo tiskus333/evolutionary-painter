@@ -1,3 +1,12 @@
+/**
+ * @file Member.cpp
+ * @author Mateusz Chruściel
+ * @brief
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #include "Member.hpp"
 
 /**
