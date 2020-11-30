@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
     if (data_filename != "")
     {
         stats_observer.getGenerationsAndFitness().exportToCsv(data_filename);
-        std::cout << "Data exported to file: " << filename << ".csv\n"
+        std::cout << "Data exported to file: " << filename << ".csv\n";
     }
     return 0;
 }
