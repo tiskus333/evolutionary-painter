@@ -13,13 +13,17 @@ Application recreating image by drawing multiple rectangles. To achieve it we ar
 ### Install dependencies
 
 **Packages**
+
+Required to build main executable.
 ```
 sudo apt-get install cmake libboost-python-dev python3 libsfml-dev python3-pip
 ```
 
 **Python packages**
+
+(python part is optional, but it is recommended for analyzing algorithm)
 ```
-pip3 install numpy matplotlib
+pip3 install numpy matplotlib notebook
 ```
 
 ### Download and nuild
