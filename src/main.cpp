@@ -1,5 +1,6 @@
 #include "EvolAlg.hpp"
 #include "Member.hpp"
+#include "StatsObserver.hpp"
 #include "TerminalObserver.hpp"
 #include <iostream>
 #include <string.h>
@@ -14,7 +15,8 @@ void printHelp()
     cout << "          -p  population size (default 30)" << std::endl;
     cout << "          -g  gene pool, maximum number of rectangles on picture (default 1000)" << std::endl;
     cout << "          -c  end simulation after given amount of generations (empty or 0, no restriction)" << std::endl;
-    cout << "          -t  run in terminal mode only (without drawing window)" << std::endl;
+    cout << "          -w  windowless mode only (without drawing window, only terminal output)" << std::endl;
+    cout << "          -t  limit execution time (in seconds)" << std::endl;
     cout << "          -h  print help" << std::endl;
 }
 
@@ -51,11 +53,13 @@ int main(int argc, char *argv[])
     int gene_count = 1000;
     int max_generations = 0;
     int render_window = true;
+    uint time_limit = 0;
+
     std::string filename = "";
 
     try
     {
-        while ((option = getopt(argc, argv, ":i:p:g:thc:")) != -1)
+        while ((option = getopt(argc, argv, ":i:p:t:g:whc:")) != -1)
         { // get option from the getopt() method
             switch (option)
             {
@@ -66,13 +70,18 @@ int main(int argc, char *argv[])
                 printHelp();
                 return 0;
                 break;
+            case 't':
+                time_limit = std::stoi(optarg);
+                if (time_limit <= 0)
+                    throw("Limiting time size must be greater than 0");
+                break;
 
             case 'p':
                 population_size = std::stoi(optarg);
                 if (population_size <= 0)
                     throw("Population size must be greater than 0");
                 break;
-            case 't':
+            case 'w':
                 render_window = false;
                 break;
             case 'g':
@@ -130,6 +139,11 @@ int main(int argc, char *argv[])
     EvolAlg p(filename, population_size, gene_count, max_generations, render_window);
 
     TerminalObserver o;
+    StatsObserver stats_observer(time_limit);
+    if (time_limit > 0)
+    {
+        stats_observer.setObservedEvolAlg(p);
+    }
     o.setObservedEvolAlg(&p);
     srand(time(NULL));
     p.run();

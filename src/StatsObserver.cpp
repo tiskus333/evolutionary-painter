@@ -32,7 +32,6 @@ void StatsObserver::update()
             }
         }
     }
-    std::cout << "ok\n";
 }
 
 void StatsObserver::setObservedEvolAlg(EvolAlg &p)
