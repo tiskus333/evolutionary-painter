@@ -116,6 +116,7 @@ void EvolAlg::run()
 
         notifyObservers();
     }
+    if(generations_ >= max_generations_ && max_generations_)
     stop();
 }
 /**
