@@ -1,3 +1,10 @@
+/**
+ * @file StatsObserver.cpp
+ * @author Paweł Kotiuk
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #include "StatsObserver.hpp"
 
 StatsObserver::StatsObserver()

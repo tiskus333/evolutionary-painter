@@ -1,3 +1,11 @@
+/**
+ * @file EvolAlg.hpp
+ * @author Paweł Kotiuk
+ * @brief File containing class EvolAlg
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #ifndef EVOL_ALG
 #define EVOL_ALG
 

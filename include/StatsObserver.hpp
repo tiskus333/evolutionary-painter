@@ -1,3 +1,11 @@
+/**
+ * @file StatsObserver.hpp
+ * @author Paweł Kotiuk
+ * @brief File containg header describing class StatsObserver
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
 #include <chrono>
 #include <fstream>
 

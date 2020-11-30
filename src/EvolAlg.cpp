@@ -1,3 +1,12 @@
+/**
+ * @file EvolAlg.cpp
+ * @author Mateusz Chruściel
+ * @brief File containing member functions of EvolAlg
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #include "EvolAlg.hpp"
 
 /**
