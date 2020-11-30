@@ -16,7 +16,7 @@ Application recreating image by drawing multiple rectangles. To achieve it we ar
 
 Required to build main executable.
 ```
-sudo apt-get install cmake libboost-python-dev python3 libsfml-dev python3-pip
+sudo apt-get install cmake libboost-python-dev libsfml-dev  python3 python3-pip jupyter-notebook
 ```
 
 **Python packages**
@@ -26,7 +26,7 @@ sudo apt-get install cmake libboost-python-dev python3 libsfml-dev python3-pip
 pip3 install numpy matplotlib notebook
 ```
 
-### Download and nuild
+### Download and build
 ```
 git clone https://gitlab.com/pktiuk/evolutionary-painter.git
 cd evolutionary-painter
@@ -51,4 +51,4 @@ Usage:    evolving-rectangles [OPTIONS]
 ```
 - Python-based - it is recommended for more research and test-focused usage. It uses C++ to python bindings.  
 It can be launched imported from file `BindWrapper.py` (you can just run this file and after importing everything you will be left in the interactive mode).
-You can also use Jupyter Notebook for easy tests. [Example notebook](./notebook.ipynb)
+You can also use Jupyter Notebook for easy tests. [Example notebook](./notebook.ipynb) - it can be launched via `jupyter notebook ./notebook.ipynb`
